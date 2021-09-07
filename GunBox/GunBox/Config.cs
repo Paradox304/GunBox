@@ -28,7 +28,7 @@ namespace GunBox
 
             Boxes = new List<Box>
             {
-                new Box("Test", 100, new List<Gun> { new Gun(97, 50, "[color=yellow]Your luck was bad, you won a Colt[/color]"), new Gun(363, 40, "[color=orange]Your luck was good, you won Maplestrike[/color]"), new Gun(116, 10, "Your luck was really good, you won a PDW"), new Gun(297, 1, "[color=red]Your luck was god-like, you won a grizzly![/color]") })
+                new Box("Test", 100, new List<Gun> { new Gun(97, 50, "[color=green]Your luck was bad, you won a Colt[/color]"), new Gun(363, 40, "[color=yellow]Your luck was good, you won Maplestrike[/color]"), new Gun(116, 10, "[color=orange]Your luck was really good, you won a PDW[/color]"), new Gun(297, 1, "[color=red]Your luck was god-like, you won a grizzly![/color]") })
             };
         }
     }
