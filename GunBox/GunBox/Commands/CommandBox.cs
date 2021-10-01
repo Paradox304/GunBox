@@ -1,5 +1,6 @@
 ﻿using GunBox.Models;
 using Rocket.API;
+using Rocket.Core;
 using Rocket.Unturned.Player;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,11 @@ namespace GunBox.Commands
             Gun gun = box.GetRandomGun();
 
             player.Player.inventory.forceAddItem(new SDG.Unturned.Item(gun.ItemID, true), true);
+            ConsolePlayer ply = new ConsolePlayer();
+            foreach (string comm in gun.Commands)
+            {
+                R.Commands.Execute(ply, comm.Replace("{id}", player.CSteamID.ToString()));
+            }
             Utility.Say(caller, gun.WinMessage.ToRich());
         }
     }

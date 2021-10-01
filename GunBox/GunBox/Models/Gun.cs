@@ -10,6 +10,7 @@ namespace GunBox.Models
     {
         public ushort ItemID { get; set; }
         public int Weight { get; set; }
+        public List<string> Commands { get; set; }
         public string WinMessage { get; set; }
 
         public Gun()
@@ -17,10 +18,11 @@ namespace GunBox.Models
 
         }
 
-        public Gun(ushort itemID, int weight, string winMessage)
+        public Gun(ushort itemID, int weight, List<string> commands, string winMessage)
         {
             ItemID = itemID;
             Weight = weight;
+            Commands = commands;
             WinMessage = winMessage;
         }
     }
