@@ -20,13 +20,16 @@ namespace GunBox.Models
         public ushort BarrelID { get; set; }
         public ushort MagazineID { get; set; }
         public ushort GripID { get; set; }
+        
+        public bool SendEffect { get; set; }
+        public ushort EffectID { get; set; }
 
         public Gun()
         {
 
         }
 
-        public Gun(ushort itemID, int weight, List<string> commands, string winMessage, bool broadcastWin, string broadcastWinMessage, bool hasAttachments, ushort sightID, ushort tacticalID, ushort barrelID, ushort magazineID, ushort gripID)
+        public Gun(ushort itemID, int weight, List<string> commands, string winMessage, bool broadcastWin, string broadcastWinMessage, bool hasAttachments, ushort sightID, ushort tacticalID, ushort barrelID, ushort magazineID, ushort gripID, bool sendEffect, ushort effectID)
         {
             ItemID = itemID;
             Weight = weight;
@@ -40,6 +43,8 @@ namespace GunBox.Models
             BarrelID = barrelID;
             MagazineID = magazineID;
             GripID = gripID;
+            SendEffect = sendEffect;
+            EffectID = effectID;
         }
     }
 }

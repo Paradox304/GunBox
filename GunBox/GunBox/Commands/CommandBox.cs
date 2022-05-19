@@ -118,6 +118,11 @@ namespace GunBox.Commands
             {
                 ChatManager.serverSendMessage(gun.BroadcastWinMessage.ToRich().Replace("{name}", player.CharacterName), Color.white, useRichTextFormatting: true, iconURL: Config.IconLink);
             }
+
+            if (gun.SendEffect)
+            {
+                EffectManager.sendEffectReliable(gun.EffectID, 10000f, player.Position);
+            }
         }
     }
 }
