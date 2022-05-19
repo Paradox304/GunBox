@@ -2,11 +2,13 @@
 using Rocket.API;
 using Rocket.Core;
 using Rocket.Unturned.Player;
+using SDG.Unturned;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace GunBox.Commands
 {
@@ -67,14 +69,55 @@ namespace GunBox.Commands
             }
 
             Gun gun = box.GetRandomGun();
+            var item = new Item(gun.ItemID, true);
+            if (gun.HasAttachments)
+            {
+                if (gun.SightID != 0)
+                {
+                    var bytes = BitConverter.GetBytes(gun.SightID);
+                    item.state[0] = bytes[0];
+                    item.state[1] = bytes[1];
+                }
+                if (gun.GripID != 0)
+                {
+                    var bytes = BitConverter.GetBytes(gun.GripID);
+                    item.state[4] = bytes[0];
+                    item.state[5] = bytes[1];
+                }
+                if (gun.TacticalID != 0)
+                {
+                    var bytes = BitConverter.GetBytes(gun.TacticalID);
+                    item.state[2] = bytes[0];
+                    item.state[3] = bytes[1];
+                }
+                if (gun.MagazineID != 0)
+                {
+                    var bytes = BitConverter.GetBytes(gun.MagazineID);
+                    item.state[8] = bytes[0];
+                    item.state[9] = bytes[1];
+                    var asset = Assets.find(EAssetType.ITEM, gun.MagazineID) as ItemMagazineAsset;
+                    item.state[10] = asset.amount;
+                }
+                if (gun.BarrelID != 0)
+                {
+                    var bytes = BitConverter.GetBytes(gun.BarrelID);
+                    item.state[6] = bytes[0];
+                    item.state[7] = bytes[1];
+                }
 
-            player.Player.inventory.forceAddItem(new SDG.Unturned.Item(gun.ItemID, true), true);
+            }
+
+            player.Player.inventory.forceAddItem(item, true);
             ConsolePlayer ply = new ConsolePlayer();
             foreach (string comm in gun.Commands)
             {
                 R.Commands.Execute(ply, comm.Replace("{id}", player.CSteamID.ToString()));
             }
             Utility.Say(caller, gun.WinMessage.ToRich());
+            if (gun.BroadcastWin)
+            {
+                ChatManager.serverSendMessage(gun.BroadcastWinMessage.ToRich().Replace("{name}", player.CharacterName), Color.white, useRichTextFormatting: true, iconURL: Config.IconLink);
+            }
         }
     }
 }
