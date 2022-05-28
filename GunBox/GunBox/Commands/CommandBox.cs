@@ -28,14 +28,8 @@ namespace GunBox.Commands
         {
             UnturnedPlayer player = caller as UnturnedPlayer;
 
-            if (command.Length != 1)
-            {
-                Utility.Say(caller, Plugin.Instance.Translate("Wrong_Usage").ToRich());
-                return;
-            }
-
             var Config = Plugin.Instance.Configuration.Instance;
-            Box box = Config.Boxes.FirstOrDefault(k => k.Name.ToLower() == command[0].ToLower());
+            Box box = Config.Boxes.FirstOrDefault(k => k.Name.ToLower() == (command.Length == 0 ? Config.DefaultGunBox : command[0].ToLower()));
 
             if (box == null)
             {
